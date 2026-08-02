@@ -16,6 +16,8 @@
 
 </head>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <body class="bg-slate-100">
 
 <div class="flex min-h-screen">
@@ -38,6 +40,63 @@
     </div>
 
 </div>
+
+<script>
+
+        document.querySelectorAll('.delete-form').forEach(form => {
+
+        form.addEventListener('submit', function(e){
+
+        e.preventDefault();
+
+        Swal.fire({
+
+            title: 'Hapus Produk?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+
+            showCancelButton: true,
+
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+
+        }).then((result)=>{
+
+            if(result.isConfirmed){
+
+                form.submit();
+
+            }
+
+        });
+
+    });
+
+});
+
+</script>
+
+@if(session('success'))
+
+<script>
+
+Swal.fire({
+
+    icon:'success',
+    title:'Berhasil',
+    text:'{{ session('success') }}',
+
+    timer:2000,
+    showConfirmButton:false
+
+});
+
+</script>
+
+@endif
 
 </body>
 

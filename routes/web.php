@@ -24,7 +24,7 @@ Route::middleware('guest')->group(function () {
 
     Route::post('/login', [LoginController::class, 'store'])
         ->name('login.store');
-    });
+});
 
 Route::middleware('auth')->group(function () {
 
@@ -38,4 +38,3 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::redirect('/login', '/');

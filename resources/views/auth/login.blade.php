@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,113 +9,112 @@
 
     @vite(['resources/css/app.css','resources/js/app.js'])
 
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 </head>
 
 <body>
 
-<div
-class="min-h-screen bg-cover bg-center relative"
-style="background-image:url('{{ asset('asset/background_login.avif') }}')">
+    <div class="min-h-screen bg-cover bg-center relative"
+        style="background-image:url('{{ asset('asset/background_login.avif') }}')">
 
-    <!-- Overlay -->
+        <!-- Overlay -->
 
-    <div class="absolute inset-0 bg-slate-950/70"></div>
+        <div class="absolute inset-0 bg-slate-950/70"></div>
 
-    <!-- Content -->
+        <!-- Content -->
 
-    <div class="relative z-10 min-h-screen flex">
+        <div class="relative z-10 min-h-screen flex">
 
-        <!-- LEFT -->
+            <!-- LEFT -->
 
-        <div class="hidden lg:flex w-1/2 items-center px-20">
+            <div class="hidden lg:flex w-1/2 items-center px-20">
 
-            <div>
+                <div>
 
-                <div class="flex items-center gap-4 mb-8">
+                    <div class="flex items-center gap-4 mb-8">
 
-                    <div
-                    class="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center">
 
-                        <i class="fa-solid fa-cart-shopping text-3xl text-white"></i>
+                            <i class="fa-solid fa-cart-shopping text-3xl text-white"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h1 class="text-5xl font-bold text-white">
+
+                                POSify
+
+                            </h1>
+
+                            <p class="text-blue-300">
+
+                                Modern Point of Sale
+
+                            </p>
+
+                        </div>
 
                     </div>
 
-                    <div>
+                    <h2 class="text-5xl font-bold text-white leading-tight">
 
-                        <h1 class="text-5xl font-bold text-white">
+                        Manage Your
+                        <span class="text-blue-400">
 
-                            POSify
-
-                        </h1>
-
-                        <p class="text-blue-300">
-
-                            Modern Point of Sale
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <h2 class="text-5xl font-bold text-white leading-tight">
-
-                    Manage Your
-                    <span class="text-blue-400">
-
-                        Business
-
-                    </span>
-
-                    Smarter.
-
-                </h2>
-
-                <p class="mt-6 text-gray-300 text-lg leading-8">
-
-                    POSify membantu Anda mengelola transaksi,
-                    stok barang, supplier, hingga laporan penjualan
-                    dalam satu aplikasi yang modern dan mudah digunakan.
-
-                </p>
-
-                <div class="mt-10 space-y-5">
-
-                    <div class="flex items-center gap-3">
-
-                        <i class="fa-solid fa-circle-check text-blue-400 text-xl"></i>
-
-                        <span class="text-white">
-
-                            Inventory Management
+                            Business
 
                         </span>
 
-                    </div>
+                        Smarter.
 
-                    <div class="flex items-center gap-3">
+                    </h2>
 
-                        <i class="fa-solid fa-circle-check text-blue-400 text-xl"></i>
+                    <p class="mt-6 text-gray-300 text-lg leading-8">
 
-                        <span class="text-white">
+                        POSify membantu Anda mengelola transaksi,
+                        stok barang, supplier, hingga laporan penjualan
+                        dalam satu aplikasi yang modern dan mudah digunakan.
 
-                            Sales Transaction
+                    </p>
 
-                        </span>
+                    <div class="mt-10 space-y-5">
 
-                    </div>
+                        <div class="flex items-center gap-3">
 
-                    <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-blue-400 text-xl"></i>
 
-                        <i class="fa-solid fa-circle-check text-blue-400 text-xl"></i>
+                            <span class="text-white">
 
-                        <span class="text-white">
+                                Inventory Management
 
-                            Sales Report
+                            </span>
 
-                        </span>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+
+                            <i class="fa-solid fa-circle-check text-blue-400 text-xl"></i>
+
+                            <span class="text-white">
+
+                                Sales Transaction
+
+                            </span>
+
+                        </div>
+
+                        <div class="flex items-center gap-3">
+
+                            <i class="fa-solid fa-circle-check text-blue-400 text-xl"></i>
+
+                            <span class="text-white">
+
+                                Sales Report
+
+                            </span>
+
+                        </div>
 
                     </div>
 
@@ -122,14 +122,11 @@ style="background-image:url('{{ asset('asset/background_login.avif') }}')">
 
             </div>
 
-        </div>
+            <!-- RIGHT -->
 
-        <!-- RIGHT -->
+            <div class="w-full lg:w-1/2 flex justify-center items-center p-8">
 
-        <div class="w-full lg:w-1/2 flex justify-center items-center p-8">
-
-            <div
-            class="w-full max-w-md
+                <div class="w-full max-w-md
             bg-white/10
             backdrop-blur-xl
             rounded-3xl
@@ -137,68 +134,61 @@ style="background-image:url('{{ asset('asset/background_login.avif') }}')">
             shadow-2xl
             p-10">
 
-                <div class="text-center">
+                    <div class="text-center">
 
-                    <div
-                    class="w-20 h-20 mx-auto rounded-full
+                        <div class="w-20 h-20 mx-auto rounded-full
                     bg-blue-600 flex items-center justify-center">
 
-                        <i class="fa-solid fa-user-lock text-3xl text-white"></i>
+                            <i class="fa-solid fa-user-lock text-3xl text-white"></i>
+
+                        </div>
+
+                        <h2 class="mt-6 text-4xl font-bold text-white">
+
+                            Welcome
+
+                        </h2>
+
+                        <p class="text-gray-300 mt-2">
+
+                            Login to continue using POSify
+
+                        </p>
 
                     </div>
 
-                    <h2 class="mt-6 text-4xl font-bold text-white">
+                    <form action="{{ route('login.store') }}" method="POST" class="mt-10 space-y-6">
 
-                        Welcome
+                        @csrf
 
-                    </h2>
+                        {{-- Error Login --}}
+                        @if ($errors->any())
+                        <div class="bg-red-500/20 border border-red-500 text-red-200 rounded-xl p-3">
+                            {{ $errors->first() }}
+                        </div>
+                        @endif
 
-                    <p class="text-gray-300 mt-2">
+                        <!-- Username -->
+                        <div>
 
-                        Login to continue using POSify
+                            <label class="text-gray-300 text-sm">
 
-                    </p>
+                                Username
 
-                </div>
+                            </label>
 
-                <form action="{{ route('login.store') }}" method="POST" class="mt-10 space-y-6">
+                            <div class="relative mt-2">
 
-                            @csrf
-
-                            {{-- Error Login --}}
-                            @if ($errors->any())
-                                <div class="bg-red-500/20 border border-red-500 text-red-200 rounded-xl p-3">
-                                    {{ $errors->first() }}
-                                </div>
-                            @endif
-
-                            <!-- Username -->
-                            <div>
-
-                                <label class="text-gray-300 text-sm">
-
-                                    Username
-
-                                </label>
-
-                                <div class="relative mt-2">
-
-                                    <i
-                                        class="fa-solid fa-user
+                                <i class="fa-solid fa-user
                                         absolute
                                         left-4
                                         top-1/2
                                         -translate-y-1/2
                                         text-gray-400">
-                                    </i>
+                                </i>
 
-                                    <input
-                                        type="text"
-                                        name="username"
-                                        value="{{ old('username') }}"
-                                        placeholder="Enter username"
-
-                                        class="w-full
+                                <input type="text" name="username" value="{{ old('username') }}"
+                                    placeholder="Enter username" class="w-full
                                         rounded-xl
                                         pl-12
                                         pr-4
@@ -212,36 +202,30 @@ style="background-image:url('{{ asset('asset/background_login.avif') }}')">
                                         focus:ring-blue-500
                                         outline-none">
 
-                                </div>
-
                             </div>
 
-                            <!-- Password -->
-                            <div>
+                        </div>
 
-                                <label class="text-gray-300 text-sm">
+                        <!-- Password -->
+                        <div>
 
-                                    Password
+                            <label class="text-gray-300 text-sm">
 
-                                </label>
+                                Password
 
-                                <div class="relative mt-2">
+                            </label>
 
-                                    <i
-                                        class="fa-solid fa-lock
+                            <div class="relative mt-2">
+
+                                <i class="fa-solid fa-lock
                                         absolute
                                         left-4
                                         top-1/2
                                         -translate-y-1/2
                                         text-gray-400">
-                                    </i>
+                                </i>
 
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        placeholder="Enter password"
-
-                                        class="w-full
+                                <input type="password" name="password" placeholder="Enter password" class="w-full
                                         rounded-xl
                                         pl-12
                                         pr-4
@@ -255,38 +239,31 @@ style="background-image:url('{{ asset('asset/background_login.avif') }}')">
                                         focus:ring-blue-500
                                         outline-none">
 
-                                </div>
-
                             </div>
 
-                            <!-- Remember Me & Forgot Password -->
-                            <div class="flex justify-between text-sm">
+                        </div>
 
-                                <label class="flex items-center gap-2 text-gray-300">
+                        <!-- Remember Me & Forgot Password -->
+                        <div class="flex justify-between text-sm">
 
-                                    <input
-                                        type="checkbox"
-                                        name="remember">
+                            <label class="flex items-center gap-2 text-gray-300">
 
-                                    Remember Me
+                                <input type="checkbox" name="remember">
 
-                                </label>
+                                Remember Me
 
-                                <a
-                                    href="#"
-                                    class="text-blue-400 hover:text-blue-300">
+                            </label>
 
-                                    Forgot Password?
+                            <a href="#" class="text-blue-400 hover:text-blue-300">
 
-                                </a>
+                                Forgot Password?
 
-                            </div>
+                            </a>
 
-                            <!-- Button Login -->
-                            <button
-                                type="submit"
+                        </div>
 
-                                class="w-full
+                        <!-- Button Login -->
+                        <button type="submit" class="w-full
                                 py-3
                                 rounded-xl
                                 bg-blue-600
@@ -296,30 +273,30 @@ style="background-image:url('{{ asset('asset/background_login.avif') }}')">
                                 font-semibold
                                 shadow-lg">
 
-                                Login
+                            Login
 
-                            </button>
+                        </button>
 
-                            <!-- Register -->
-                            <div class="mt-6 text-center">
+                        <!-- Register -->
+                        <div class="mt-6 text-center">
 
-                                <p class="text-gray-300">
+                            <p class="text-gray-300">
 
-                                    Belum punya akun?
+                                Belum punya akun?
 
-                                    <a
-                                        href="{{ route('daftar') }}"
-                                        class="text-blue-400 hover:text-blue-300 font-semibold">
+                                <a href="{{ route('daftar') }}" class="text-blue-400 hover:text-blue-300 font-semibold">
 
-                                        Daftar sekarang
+                                    Daftar sekarang
 
-                                    </a>
+                                </a>
 
-                                </p>
+                            </p>
 
-                            </div>
+                        </div>
 
-                        </form>
+                    </form>
+
+                </div>
 
             </div>
 
@@ -327,7 +304,6 @@ style="background-image:url('{{ asset('asset/background_login.avif') }}')">
 
     </div>
 
-</div>
-
 </body>
+
 </html>

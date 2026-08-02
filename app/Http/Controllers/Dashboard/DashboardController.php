@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use App\Models\Product;
 
 class DashboardController extends Controller
 {
@@ -46,6 +49,8 @@ class DashboardController extends Controller
 
 ];
 
-        return view('dashboard',compact('stats','activities'));
+$jumlahProduk = Product::count();
+
+        return view('dashboard',compact('stats','activities','jumlahProduk'));
     }
 }

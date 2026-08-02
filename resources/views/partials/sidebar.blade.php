@@ -42,7 +42,7 @@
 
                 class="flex items-center gap-4
                 px-5 py-3 rounded-xl
-                bg-blue-600">
+                {{ request()->is('dashboard') ? 'bg-blue-600' : '' }}">
 
                     <i class="fa-solid fa-house"></i>
 
@@ -55,12 +55,11 @@
             <li>
 
                 <a
-                href="#"
+                href="/products"
 
                 class="flex items-center gap-4
                 px-5 py-3 rounded-xl
-                hover:bg-slate-800
-                duration-300">
+                {{ request()->is('products') ? 'bg-blue-600' : '' }}">
 
                     <i class="fa-solid fa-box"></i>
 
@@ -165,21 +164,26 @@
     </nav>
 
     <div class="p-5 border-t border-slate-700">
+        <form
+            action="/logout"
+            method="POST">
 
-        <a
-        href="/logout"
+            @csrf
 
-        class="flex items-center gap-4
-        px-5 py-3 rounded-xl
-        hover:bg-red-600
-        duration-300">
+            <button
+                type="submit"
 
-            <i class="fa-solid fa-right-from-bracket"></i>
+                class="flex items-center gap-4
+                px-5 py-3 rounded-xl
+                hover:bg-red-600
+                duration-300">
 
-            Logout
+                    <i class="fa-solid fa-right-from-bracket"></i>
 
-        </a>
+                    Logout
 
+            </button>
+        </form>
     </div>
 
 </aside>

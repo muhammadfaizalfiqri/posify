@@ -148,7 +148,7 @@
                     font-bold
                     mt-3">
 
-                        {{ $stats['products'] }}
+                        {{ $jumlahProduk }}
 
                     </h2>
 

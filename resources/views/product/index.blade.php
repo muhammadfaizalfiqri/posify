@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
 <div class="space-y-8">
 
     <!-- ================= HEADER ================= -->
@@ -35,14 +37,14 @@
 
             </button>
 
-            <button
+            <a href="{{ route('products.create') }}"
                 class="px-6 py-3 rounded-xl bg-blue-600 text-white shadow-lg hover:bg-blue-700 duration-300">
 
                 <i class="fa-solid fa-plus mr-2"></i>
 
                 Tambah Produk
 
-            </button>
+            </a>
 
         </div>
 
@@ -71,7 +73,7 @@
 
                     <h2 class="text-4xl font-bold mt-3">
 
-                        125
+                        {{ $products->count() }}
 
                     </h2>
 
@@ -306,191 +308,110 @@
         <div
             class="overflow-x-auto">
 
-            <table
-                class="w-full">
+           <table class="w-full">
 
-                <thead
-                    class="bg-slate-100">
+            <thead>
 
-                    <tr>
+                <tr class="border-b text-gray-500 text-sm">
 
-                        <th class="text-left py-5 px-6">
+                    <th class="py-4 px-6 text-left">Kode</th>
 
-                            Foto
+                    <th class="py-4 px-6 text-left">Nama Produk</th>
 
-                        </th>
+                    <th class="py-4 px-6 text-left">Kategori</th>
 
-                        <th class="text-left py-5">
+                    <th class="py-4 px-6 text-left">Harga</th>
 
-                            Nama Produk
+                    <th class="py-4 px-6 text-center">Stok</th>
 
-                        </th>
+                    <th class="py-4 px-6 text-center">Status</th>
 
-                        <th class="text-left py-5">
+                    <th class="py-4 px-6 text-center">Aksi</th>
 
-                            Kategori
+                </tr>
 
-                        </th>
+            </thead>
 
-                        <th class="text-left py-5">
+            <tbody>
 
-                            Harga
+                @forelse($products as $product)
 
-                        </th>
+                <tr class="border-b hover:bg-gray-50 duration-200">
 
-                        <th class="text-left py-5">
-
-                            Stok
-
-                        </th>
-
-                        <th class="text-left py-5">
-
-                            Status
-
-                        </th>
-
-                        <th class="text-center py-5">
-
-                            Aksi
-
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-                                    <!-- ================= DATA PRODUK ================= -->
-
-                @for($i = 1; $i <= 8; $i++)
-
-                <tr
-                class="border-b border-slate-100 hover:bg-slate-50 duration-200">
-
-                    <td class="px-6 py-5">
-
-                        <img
-                        src="https://placehold.co/60x60"
-                        class="w-14 h-14 rounded-xl object-cover">
-
+                    <td class="py-4 px-6 font-medium">
+                        {{ $product->kode_produk }}
                     </td>
 
-                    <td>
+                    <td class="py-4 px-6">
+                        {{ $product->nama_produk }}
+                    </td>
 
-                        <div>
+                    <td class="py-4 px-6">
+                        {{ $product->kategori }}
+                    </td>
 
-                            <h3
-                            class="font-semibold text-slate-700">
+                    <td class="py-4 px-6">
+                        Rp {{ number_format($product->harga,0,',','.') }}
+                    </td>
 
-                                Aqua 600ml
+                    <td class="py-4 px-6 text-center">
+                        {{ $product->stok }}
+                    </td>
 
-                            </h3>
+                    <td class="py-4 px-6 text-center">
 
-                            <span
-                            class="text-sm text-slate-400">
+                        @if($product->status)
 
-                                PRD00{{ $i }}
-
+                            <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
+                                Aktif
                             </span>
 
-                        </div>
+                        @else
+
+                            <span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-semibold">
+                                Tidak Aktif
+                            </span>
+
+                        @endif
 
                     </td>
 
-                    <td>
+                    <td class="py-4 px-6 text-center">
 
-                        <span
-                        class="px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm">
+                        <div class="flex justify-center gap-2">
 
-                            Minuman
+                            <a href="{{ route('products.show',$product->id) }}"
+                                class="w-9 h-9 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center hover:bg-blue-500 hover:text-white">
 
-                        </span>
+                                <i class="fa-solid fa-eye"></i>
 
-                    </td>
+                            </a>
 
-                    <td>
+                            <a href="{{ route('products.edit', $product->id) }}"
+                                class="w-9 h-9 rounded-lg bg-yellow-100 text-yellow-600 flex items-center justify-center hover:bg-yellow-500 hover:text-white">
 
-                        <span
-                        class="font-semibold">
+                                <i class="fa-solid fa-pen"></i>
 
-                            Rp5.000
+                            </a>
 
-                        </span>
+                            <form action="{{ route('products.destroy', $product->id) }}"
+                                method="POST"
+                                class="inline-block delete-form">
 
-                    </td>
+                                @csrf
+                                @method('DELETE')
 
-                    <td>
+                                <button
+                                    type="submit"
+                                    class="w-9 h-9 rounded-lg bg-red-100 text-red-600
+                                        flex items-center justify-center
+                                        hover:bg-red-500 hover:text-white">
 
-                        <span
-                        class="px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm">
+                                    <i class="fa-solid fa-trash"></i>
 
-                            120
+                                </button>
 
-                        </span>
-
-                    </td>
-
-                    <td>
-
-                        <span
-                        class="px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 text-sm">
-
-                            Aktif
-
-                        </span>
-
-                    </td>
-
-                    <td>
-
-                        <div
-                        class="flex justify-center gap-3">
-
-                            <!-- Detail -->
-
-                            <button
-                            class="w-10 h-10 rounded-xl
-                            bg-slate-100
-                            hover:bg-slate-200
-                            duration-300">
-
-                                <i
-                                class="fa-solid fa-eye text-slate-600">
-
-                                </i>
-
-                            </button>
-
-                            <!-- Edit -->
-
-                            <button
-                            class="w-10 h-10 rounded-xl
-                            bg-yellow-100
-                            hover:bg-yellow-200
-                            duration-300">
-
-                                <i
-                                class="fa-solid fa-pen text-yellow-700">
-
-                                </i>
-
-                            </button>
-
-                            <!-- Delete -->
-
-                            <button
-                            class="w-10 h-10 rounded-xl
-                            bg-red-100
-                            hover:bg-red-200
-                            duration-300">
-
-                                <i
-                                class="fa-solid fa-trash text-red-700">
-
-                                </i>
-
-                            </button>
+                            </form>
 
                         </div>
 
@@ -498,11 +419,23 @@
 
                 </tr>
 
-                @endfor
+                @empty
 
-                </tbody>
+                <tr>
 
-            </table>
+                    <td colspan="7" class="text-center py-8 text-gray-400">
+
+                        Belum ada data produk.
+
+                    </td>
+
+                </tr>
+
+                @endforelse
+
+            </tbody>
+
+        </table>
 
         </div>
 
@@ -528,7 +461,7 @@
 
             <span class="font-semibold">
 
-                125
+                {{ $products->count() }}
 
             </span>
 

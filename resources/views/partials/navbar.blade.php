@@ -48,13 +48,13 @@ class="bg-white shadow-sm px-8 py-5 flex justify-between items-center">
 
                 <h4 class="font-semibold">
 
-                    Muhammad Faiz
+                    {{ Auth::user()->name }}
 
                 </h4>
 
                 <span class="text-sm text-slate-500">
 
-                    Administrator
+                    {{ Auth::user()->role }}
 
                 </span>
 
