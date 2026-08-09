@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\support\Facades\Hash;
+use Illuminate\Support\Facades\Hash;
 
 class DaftarController extends Controller
 {
