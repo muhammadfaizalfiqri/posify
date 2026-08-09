@@ -13,7 +13,7 @@ class Product extends Model
     protected $fillable = [
         'kode_produk',
         'nama_produk',
-        'kategori',
+        'category_id',
         'harga',
         'stok',
         'status',
@@ -32,5 +32,14 @@ class Product extends Model
     return Attribute::make(
         get: fn () => $this->status ? 'Aktif' : 'Tidak Aktif',
     );
+}
+public function category()
+{
+    return $this->belongsTo(Category::class);
+}
+
+public function transactionDetails()
+{
+    return $this->hasMany(TransactionDetail::class);
 }
 }

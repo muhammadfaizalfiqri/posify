@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Data Product')
+
 @section('content')
 
 
@@ -28,14 +30,14 @@
 
         <div class="flex gap-4">
 
-            <button
-                class="px-5 py-3 rounded-xl bg-white border border-slate-200 shadow hover:bg-slate-50 duration-300">
+            <a href="{{ route('products.export', request()->query()) }}"
+                class="px-5 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 flex items-center gap-2">
 
-                <i class="fa-solid fa-file-export mr-2"></i>
+                <i class="fa-solid fa-file-csv"></i>
 
-                Export
+                Export CSV
 
-            </button>
+            </a>
 
             <a href="{{ route('products.create') }}"
                 class="px-6 py-3 rounded-xl bg-blue-600 text-white shadow-lg hover:bg-blue-700 duration-300">
@@ -73,7 +75,7 @@
 
                     <h2 class="text-4xl font-bold mt-3">
 
-                        {{ $products->count() }}
+                        {{ $totalProduk }}
 
                     </h2>
 
@@ -96,43 +98,38 @@
 
 
         <!-- Stok Menipis -->
-
         <div
-            class="bg-white rounded-3xl shadow-md p-6 hover:shadow-xl duration-300">
+            onclick="window.location='{{ route('products.index', ['filter' => 'stok-menipis']) }}'"
+            class="bg-white rounded-3xl shadow-md p-6 hover:shadow-xl hover:scale-105 duration-300 cursor-pointer">
 
             <div class="flex justify-between">
 
                 <div>
 
                     <p class="text-slate-500">
-
                         Stok Menipis
-
                     </p>
 
                     <h2 class="text-4xl font-bold mt-3">
-
-                        8
-
+                        {{ $stokMenipis }}
                     </h2>
+
+                    <p class="text-sm text-red-500 mt-2">
+                        Klik untuk melihat produk
+                    </p>
 
                 </div>
 
                 <div
                     class="w-16 h-16 rounded-2xl bg-red-100 flex items-center justify-center">
 
-                    <i
-                        class="fa-solid fa-triangle-exclamation text-3xl text-red-600">
-
-                    </i>
+                    <i class="fa-solid fa-triangle-exclamation text-3xl text-red-600"></i>
 
                 </div>
 
             </div>
 
         </div>
-
-
 
         <!-- Kategori -->
 
@@ -151,7 +148,7 @@
 
                     <h2 class="text-4xl font-bold mt-3">
 
-                        12
+                        {{ $jumlahkategori }}
 
                     </h2>
 
@@ -190,7 +187,7 @@
 
                     <h2 class="text-4xl font-bold mt-3">
 
-                        15
+                        {{ $jumlahSupplier }}
 
                     </h2>
 
@@ -215,86 +212,89 @@
 
 
     <!-- ================= SEARCH ================= -->
+    <div class="bg-white rounded-3xl shadow-md p-6">
 
-    <div
-        class="bg-white rounded-3xl shadow-md p-6">
+        <form action="{{ route('products.index') }}" method="GET">
 
-        <div
-            class="grid grid-cols-1 lg:grid-cols-4 gap-5">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-5">
 
-            <!-- Search -->
+                <!-- Search -->
+                <div class="lg:col-span-2">
+                    <div class="relative">
 
-            <div class="lg:col-span-2">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-slate-400"></i>
 
-                <div class="relative">
+                        <input
+                            type="text"
+                            name="search"
+                            value="{{ request('search') }}"
+                            placeholder="Cari produk..."
+                            class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
 
-                    <i
-                        class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-slate-400">
-
-                    </i>
-
-                    <input
-                        type="text"
-                        placeholder="Cari produk..."
-                        class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
-
+                    </div>
                 </div>
+
+                <!-- Filter Kategori -->
+                <select
+                    name="category_id"
+                    class="rounded-xl border border-slate-200 px-4">
+
+                    <option value="">Semua Kategori</option>
+
+                    @foreach($categories as $category)
+
+                        <option
+                            value="{{ $category->id }}"
+                            {{ request('category_id') == $category->id ? 'selected' : '' }}>
+
+                            {{ $category->kode_kategori }} - {{ $category->nama_kategori }}
+
+                        </option>
+
+                    @endforeach
+
+                </select>
+
+                <!-- Filter Status -->
+                <select
+                    name="status"
+                    class="rounded-xl border border-slate-200 px-4">
+
+                    <option value="">Semua Status</option>
+
+                    <option value="1"
+                        {{ request('status') == '1' ? 'selected' : '' }}>
+                        Aktif
+                    </option>
+
+                    <option value="0"
+                        {{ request('status') == '0' ? 'selected' : '' }}>
+                        Tidak Aktif
+                    </option>
+
+                </select>
 
             </div>
 
+            <div class="flex justify-end mt-5 gap-3">
 
+                <a href="{{ route('products.index') }}"
+                    class="px-5 py-2 rounded-xl border hover:bg-gray-100">
 
-            <!-- Filter -->
+                    Reset
 
-            <select
-                class="rounded-xl border border-slate-200 px-4">
+                </a>
 
-                <option>
+                <button
+                    class="px-5 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700">
 
-                    Semua Kategori
+                    Cari
 
-                </option>
+                </button>
 
-                <option>
+            </div>
 
-                    Minuman
-
-                </option>
-
-                <option>
-
-                    Makanan
-
-                </option>
-
-            </select>
-
-
-
-            <select
-                class="rounded-xl border border-slate-200 px-4">
-
-                <option>
-
-                    Semua Status
-
-                </option>
-
-                <option>
-
-                    Aktif
-
-                </option>
-
-                <option>
-
-                    Tidak Aktif
-
-                </option>
-
-            </select>
-
-        </div>
+        </form>
 
     </div>
 
@@ -347,7 +347,7 @@
                     </td>
 
                     <td class="py-4 px-6">
-                        {{ $product->kategori }}
+                        {{ $product->category->kode_kategori }} - {{ $product->category->nama_kategori }}
                     </td>
 
                     <td class="py-4 px-6">
@@ -449,11 +449,19 @@
         <div
         class="text-slate-500">
 
-            Menampilkan
+           Menampilkan
 
             <span class="font-semibold">
 
-                1-8
+                {{ $products->firstItem() }}
+
+            </span>
+
+            -
+
+            <span class="font-semibold">
+
+                {{ $products->lastItem() }}
 
             </span>
 
@@ -461,7 +469,7 @@
 
             <span class="font-semibold">
 
-                {{ $products->count() }}
+                {{ $products->total() }}
 
             </span>
 
@@ -469,43 +477,9 @@
 
         </div>
 
-        <div
-        class="flex gap-2">
+        <div>
 
-            <button
-            class="px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100">
-
-                <i class="fa-solid fa-chevron-left"></i>
-
-            </button>
-
-            <button
-            class="px-4 py-2 rounded-xl bg-blue-600 text-white">
-
-                1
-
-            </button>
-
-            <button
-            class="px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100">
-
-                2
-
-            </button>
-
-            <button
-            class="px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100">
-
-                3
-
-            </button>
-
-            <button
-            class="px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100">
-
-                <i class="fa-solid fa-chevron-right"></i>
-
-            </button>
+            {{ $products->links() }}
 
         </div>
 

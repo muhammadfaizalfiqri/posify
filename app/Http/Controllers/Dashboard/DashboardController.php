@@ -7,50 +7,115 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\Product;
+use App\Models\Customer;
+use App\Models\Transaction;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
     public function index()
-    {
-        $stats = [
+{
+    $sales = Transaction::sum('total');
 
-            'sales' => 18250000,
+    $transactions = Transaction::count();
 
-            'products' => 125,
+    $jumlahProduk = Product::count();
 
-            'customers' => 86,
+    $jumlahCustomer = Customer::count();
 
-            'transactions' => 52,
+    $latestTransactions = Transaction::with('customer')
+        ->latest()
+        ->take(5)
+        ->get();
+
+    /*
+    |--------------------------------------------------------------------------
+    | Grafik 7 Hari
+    |--------------------------------------------------------------------------
+    */
+
+    $labels = [];
+    $data = [];
+
+    for ($i = 6; $i >= 0; $i--) {
+
+        $tanggal = Carbon::now()->subDays($i);
+
+        $labels[] = $tanggal->format('d M');
+
+        $data[] = Transaction::whereDate(
+            'created_at',
+            $tanggal->toDateString()
+        )->sum('total');
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Aktivitas
+    |--------------------------------------------------------------------------
+    */
+
+   $activities = Transaction::with('customer')
+    ->latest()
+    ->take(5)
+    ->get()
+    ->map(function ($trx) {
+
+        return [
+
+            'title' => 'Transaksi ' . $trx->invoice .
+                       ' oleh ' . ($trx->customer->nama_customer ?? 'Customer Umum'),
+
+            'time' => $trx->created_at->diffForHumans(),
+
+            'icon' => 'fa-cart-shopping',
+
+            'class' => 'text-green-500',
 
         ];
 
-        $activities = [
+    });
 
-    [
-        'title' => 'Produk baru ditambahkan',
-        'time' => '2 menit lalu',
-        'icon' => 'fa-box',
-        'class' => 'text-blue-500',
-    ],
+    $stats = [
 
-    [
-        'title' => 'Supplier baru',
-        'time' => '15 menit lalu',
-        'icon' => 'fa-truck',
-        'class' => 'text-green-500',
-    ],
+        'sales' => $sales,
 
-    [
-        'title' => 'Transaksi berhasil',
-        'time' => '30 menit lalu',
-        'icon' => 'fa-cart-shopping',
-        'class' => 'text-purple-500',
-    ],
+        'transactions' => $transactions,
 
-];
+    ];
 
-$jumlahProduk = Product::count();
+    $labels = [];
+    $data = [];
 
-        return view('dashboard',compact('stats','activities','jumlahProduk'));
+    for ($i = 6; $i >= 0; $i--) {
+
+        $tanggal = Carbon::now()->subDays($i);
+
+        $labels[] = $tanggal->translatedFormat('D');
+
+        $data[] = Transaction::whereDate('created_at', $tanggal)
+                    ->sum('total');
+
+    }
+
+    return view('dashboard', compact(
+
+        'stats',
+
+        'activities',
+
+        'jumlahProduk',
+
+        'jumlahCustomer',
+
+        'latestTransactions',
+
+        'labels',
+
+        'data'
+
+    ));
+
     }
 }

@@ -6,9 +6,9 @@
 
 <div class="space-y-8">
 
-    <!-- ===================== HEADER ===================== -->
+    <!-- ================= HEADER ================= -->
 
-    <div class="flex justify-between items-center">
+    <div class="flex items-center justify-between">
 
         <div>
 
@@ -26,95 +26,53 @@
 
         </div>
 
-        <div>
+        <a
+            href="{{ route('transactions.index') }}"
+            class="bg-blue-600 hover:bg-blue-700 duration-300 text-white px-6 py-3 rounded-xl shadow-lg">
 
-            <button
-            class="bg-blue-600
-            hover:bg-blue-700
-            duration-300
-            text-white
-            px-6
-            py-3
-            rounded-xl
-            shadow-lg">
+            <i class="fa-solid fa-plus mr-2"></i>
 
-                <i class="fa-solid fa-plus mr-2"></i>
+            Transaksi Baru
 
-                Transaksi Baru
-
-            </button>
-
-        </div>
+        </a>
 
     </div>
 
-    <!-- ===================== CARD STATISTIK ===================== -->
+    <!-- ================= CARD STATISTIK ================= -->
 
-    <div
-    class="grid
-    grid-cols-1
-    md:grid-cols-2
-    xl:grid-cols-4
-    gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
 
-        <!-- Card 1 -->
+        <!-- Total Penjualan -->
 
-        <div
-        class="bg-white
-        rounded-3xl
-        shadow-md
-        hover:shadow-xl
-        duration-300
-        p-7">
+        <div class="bg-white rounded-3xl shadow-md hover:shadow-xl duration-300 p-7">
 
             <div class="flex justify-between">
 
                 <div>
 
-                    <span
-                    class="text-slate-500">
+                    <span class="text-slate-500">
 
                         Total Penjualan
 
                     </span>
 
-                    <h2
-                    class="text-3xl
-                    font-bold
-                    mt-3">
+                    <h2 class="text-3xl font-bold mt-3">
 
                         Rp {{ number_format($stats['sales'],0,',','.') }}
 
                     </h2>
 
-                    <p
-                    class="text-green-600
-                    mt-4
-                    text-sm">
+                    <p class="text-green-600 mt-4 text-sm">
 
-                        <i class="fa-solid fa-arrow-trend-up"></i>
-
-                        Naik 12%
+                        Akumulasi seluruh transaksi
 
                     </p>
 
                 </div>
 
-                <div
-                class="w-16
-                h-16
-                rounded-2xl
-                bg-green-100
-                flex
-                justify-center
-                items-center">
+                <div class="w-16 h-16 rounded-2xl bg-green-100 flex justify-center items-center">
 
-                    <i
-                    class="fa-solid fa-sack-dollar
-                    text-3xl
-                    text-green-600">
-
-                    </i>
+                    <i class="fa-solid fa-sack-dollar text-3xl text-green-600"></i>
 
                 </div>
 
@@ -122,62 +80,37 @@
 
         </div>
 
-        <!-- Card 2 -->
+        <!-- Total Produk -->
 
-        <div
-        class="bg-white
-        rounded-3xl
-        shadow-md
-        hover:shadow-xl
-        duration-300
-        p-7">
+        <div class="bg-white rounded-3xl shadow-md hover:shadow-xl duration-300 p-7">
 
             <div class="flex justify-between">
 
                 <div>
 
-                    <span
-                    class="text-slate-500">
+                    <span class="text-slate-500">
 
                         Total Produk
 
                     </span>
 
-                    <h2
-                    class="text-3xl
-                    font-bold
-                    mt-3">
+                    <h2 class="text-3xl font-bold mt-3">
 
                         {{ $jumlahProduk }}
 
                     </h2>
 
-                    <p
-                    class="text-blue-600
-                    mt-4
-                    text-sm">
+                    <p class="text-blue-600 mt-4 text-sm">
 
-                        Produk Aktif
+                        Produk tersedia
 
                     </p>
 
                 </div>
 
-                <div
-                class="w-16
-                h-16
-                rounded-2xl
-                bg-blue-100
-                flex
-                justify-center
-                items-center">
+                <div class="w-16 h-16 rounded-2xl bg-blue-100 flex justify-center items-center">
 
-                    <i
-                    class="fa-solid fa-box
-                    text-3xl
-                    text-blue-600">
-
-                    </i>
+                    <i class="fa-solid fa-box text-3xl text-blue-600"></i>
 
                 </div>
 
@@ -185,62 +118,37 @@
 
         </div>
 
-        <!-- Card 3 -->
+        <!-- Total Customer -->
 
-        <div
-        class="bg-white
-        rounded-3xl
-        shadow-md
-        hover:shadow-xl
-        duration-300
-        p-7">
+        <div class="bg-white rounded-3xl shadow-md hover:shadow-xl duration-300 p-7">
 
             <div class="flex justify-between">
 
                 <div>
 
-                    <span
-                    class="text-slate-500">
+                    <span class="text-slate-500">
 
                         Customer
 
                     </span>
 
-                    <h2
-                    class="text-3xl
-                    font-bold
-                    mt-3">
+                    <h2 class="text-3xl font-bold mt-3">
 
-                        {{ $stats['customers'] }}
+                        {{ $jumlahCustomer }}
 
                     </h2>
 
-                    <p
-                    class="text-orange-500
-                    mt-4
-                    text-sm">
+                    <p class="text-orange-500 mt-4 text-sm">
 
-                        Customer Aktif
+                        Customer terdaftar
 
                     </p>
 
                 </div>
 
-                <div
-                class="w-16
-                h-16
-                rounded-2xl
-                bg-orange-100
-                flex
-                justify-center
-                items-center">
+                <div class="w-16 h-16 rounded-2xl bg-orange-100 flex justify-center items-center">
 
-                    <i
-                    class="fa-solid fa-users
-                    text-3xl
-                    text-orange-600">
-
-                    </i>
+                    <i class="fa-solid fa-users text-3xl text-orange-600"></i>
 
                 </div>
 
@@ -248,62 +156,37 @@
 
         </div>
 
-        <!-- Card 4 -->
+        <!-- Total Transaksi -->
 
-        <div
-        class="bg-white
-        rounded-3xl
-        shadow-md
-        hover:shadow-xl
-        duration-300
-        p-7">
+        <div class="bg-white rounded-3xl shadow-md hover:shadow-xl duration-300 p-7">
 
             <div class="flex justify-between">
 
                 <div>
 
-                    <span
-                    class="text-slate-500">
+                    <span class="text-slate-500">
 
-                        Transaksi
+                        Total Transaksi
 
                     </span>
 
-                    <h2
-                    class="text-3xl
-                    font-bold
-                    mt-3">
+                    <h2 class="text-3xl font-bold mt-3">
 
                         {{ $stats['transactions'] }}
 
                     </h2>
 
-                    <p
-                    class="text-purple-500
-                    mt-4
-                    text-sm">
+                    <p class="text-purple-500 mt-4 text-sm">
 
-                        Hari Ini
+                        Seluruh transaksi
 
                     </p>
 
                 </div>
 
-                <div
-                class="w-16
-                h-16
-                rounded-2xl
-                bg-purple-100
-                flex
-                justify-center
-                items-center">
+                <div class="w-16 h-16 rounded-2xl bg-purple-100 flex justify-center items-center">
 
-                    <i
-                    class="fa-solid fa-cart-shopping
-                    text-3xl
-                    text-purple-600">
-
-                    </i>
+                    <i class="fa-solid fa-cart-shopping text-3xl text-purple-600"></i>
 
                 </div>
 
@@ -315,216 +198,189 @@
 
     <!-- ===================== GRAFIK + AKTIVITAS ===================== -->
 
-    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
 
-    <div
-    class="xl:col-span-2
-    bg-white
-    rounded-3xl
-    shadow-md
-    p-8">
+    <!-- ================= GRAFIK ================= -->
 
-    <div
-    class="flex
-    justify-between"    
-    items-center
-    mb-8">
+    <div class="xl:col-span-2 bg-white rounded-3xl shadow-md p-8">
 
-        <div>
-
-            <h2 class="text-2xl font-bold">
-                Grafik Penjualan
-            </h2>
-
-            <p class="text-slate-500">
-                Penjualan 7 Hari Terakhir
-            </p>
-
-        </div>
-
-        <button
-        class="border
-        border-blue-500
-        text-blue-600
-        px-4
-        py-2
-        rounded-xl">
-
-            Mingguan
-
-        </button>
-
-    </div>
-
-    <div class="h-80">
-        <canvas id="salesChart"></canvas>
-    </div>
-
-</div>
-
-        <!-- ===================== AKTIVITAS ===================== -->
-
-<div
-class="bg-white
-rounded-3xl
-shadow-md
-p-8">
-
-    <h2
-    class="text-2xl
-    font-bold
-    mb-8">
-
-        Aktivitas Terbaru
-
-    </h2>
-
-    <div class="space-y-6">
-
-        @foreach($activities as $activity)
-
-        <div
-        class="flex
-        items-start
-        gap-4">
-
-            <div
-            class="w-12
-            h-12
-            rounded-xl
-            bg-slate-100
-            flex
-            justify-center
-            items-center">
-
-                <i
-                class="fa-solid {{ $activity['icon'] }}
-                {{ $activity['class'] }}
-                text-lg">
-
-                </i>
-
-            </div>
+        <div class="flex justify-between items-center mb-8">
 
             <div>
 
-                <h4
-                class="font-semibold
-                text-slate-700">
+                <h2 class="text-2xl font-bold text-slate-800">
 
-                    {{ $activity['title'] }}
+                    Grafik Penjualan
 
-                </h4>
+                </h2>
 
-                <span
-                class="text-sm
-                text-slate-500">
+                <p class="text-slate-500 mt-1">
 
-                    {{ $activity['time'] }}
+                    Total penjualan 7 hari terakhir
 
-                </span>
+                </p>
+
+            </div>
+
+            <div class="bg-blue-50 text-blue-600 px-4 py-2 rounded-xl text-sm font-medium">
+
+                7 Hari Terakhir
 
             </div>
 
         </div>
 
-        @endforeach
+        <div class="h-80">
+
+            <canvas id="salesChart"></canvas>
+
+        </div>
+
+    </div>
+
+    <!-- ================= AKTIVITAS ================= -->
+
+    <div class="bg-white rounded-3xl shadow-md p-8">
+
+        <div class="flex items-center justify-between mb-8">
+
+            <h2 class="text-2xl font-bold text-slate-800">
+
+                Aktivitas Terbaru
+
+            </h2>
+
+            <i class="fa-solid fa-clock-rotate-left text-slate-400"></i>
+
+        </div>
+
+        <div class="space-y-6">
+
+            @forelse($activities as $activity)
+
+                <div class="flex items-start gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-slate-100 flex justify-center items-center">
+
+                        <i class="fa-solid {{ $activity['icon'] }} {{ $activity['class'] }} text-lg"></i>
+
+                    </div>
+
+                    <div class="flex-1">
+
+                        <h4 class="font-semibold text-slate-700">
+
+                            {{ $activity['title'] }}
+
+                        </h4>
+
+                        <p class="text-sm text-slate-500 mt-1">
+
+                            {{ $activity['time'] }}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            @empty
+
+                <div class="text-center py-10">
+
+                    <i class="fa-solid fa-clock text-4xl text-slate-300 mb-3"></i>
+
+                    <p class="text-slate-400">
+
+                        Belum ada aktivitas.
+
+                    </p>
+
+                </div>
+
+            @endforelse
+
+        </div>
 
     </div>
 
 </div>
 
-</div>
+<!-- ===================== TRANSAKSI TERBARU ===================== -->
 
-</div>
+<div class="bg-white rounded-3xl shadow-md p-8">
 
-<!-- ===================== TABEL TRANSAKSI ===================== -->
-
-<div class="bg-white rounded-3xl shadow-md p-8 mt-8">
-
-<div
-class="bg-white
-rounded-3xl
-shadow-md
-p-8">
-
-    <div
-    class="flex
-    justify-between
-    items-center
-    mb-8">
+    <div class="flex justify-between items-center mb-8">
 
         <div>
 
-            <h2
-            class="text-2xl
-            font-bold">
+            <h2 class="text-2xl font-bold text-slate-800">
 
                 Transaksi Terbaru
 
             </h2>
 
-            <p
-            class="text-slate-500">
+            <p class="text-slate-500 mt-1">
 
-                Daftar transaksi hari ini
+                5 transaksi terakhir
 
             </p>
 
         </div>
 
-        <button
-        class="px-5
-        py-2
-        rounded-xl
-        bg-blue-600
-        text-white
-        hover:bg-blue-700
-        duration-300">
+        <a
+            href="{{ route('reports.index') }}"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl duration-300">
+
+            <i class="fa-solid fa-file-lines mr-2"></i>
 
             Lihat Semua
 
-        </button>
+        </a>
 
     </div>
 
     <div class="overflow-x-auto">
 
-        <table
-        class="w-full">
+        <table class="w-full">
 
-            <thead>
+            <thead class="bg-slate-100">
 
-                <tr
-                class="border-b">
+                <tr>
 
-                    <th class="text-left py-4">
+                    <th class="px-6 py-4 text-left">
 
                         Invoice
 
                     </th>
 
-                    <th class="text-left py-4">
+                    <th class="px-6 py-4 text-left">
 
                         Customer
 
                     </th>
 
-                    <th class="text-left py-4">
+                    <th class="px-6 py-4 text-left">
 
                         Kasir
 
                     </th>
 
-                    <th class="text-left py-4">
+                    <th class="px-6 py-4 text-right">
 
                         Total
 
                     </th>
 
-                    <th class="text-left py-4">
+                    <th class="px-6 py-4 text-center">
 
                         Status
+
+                    </th>
+
+                    <th class="px-6 py-4 text-center">
+
+                        Tanggal
 
                     </th>
 
@@ -534,43 +390,39 @@ p-8">
 
             <tbody>
 
-                <tr
-                class="border-b
-                hover:bg-slate-50">
+                @forelse($latestTransactions as $trx)
 
-                    <td class="py-5">
+                <tr class="border-b hover:bg-slate-50 transition items-center">
 
-                        INV001
+                    <td class="px-6 py-5 font-semibold text-blue-600">
 
-                    </td>
-
-                    <td>
-
-                        Andi
+                        {{ $trx->invoice }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-5">
 
-                        Faiz
-
-                    </td>
-
-                    <td>
-
-                        Rp250.000
+                        {{ $trx->customer?->nama_customer ?? 'Customer Umum' }}
 
                     </td>
 
-                    <td>
+                    <td class="px-6 py-5">
 
-                        <span
-                        class="bg-green-100
-                        text-green-700
-                        px-4
-                        py-2
-                        rounded-full
-                        text-sm">
+                        {{ auth()->user()->name }}
+
+                    </td>
+
+                    <td class="px-6 py-5 text-right font-semibold">
+
+                        Rp {{ number_format($trx->total,0,',','.') }}
+
+                    </td>
+
+                    <td class="px-6 py-5 text-center">
+
+                        <span class="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-medium">
+
+                            <i class="fa-solid fa-circle-check mr-2"></i>
 
                             Berhasil
 
@@ -578,99 +430,29 @@ p-8">
 
                     </td>
 
-                </tr>
+                    <td class="px-6 py-5 text-center text-slate-500">
 
-                <tr
-                class="border-b
-                hover:bg-slate-50">
-
-                    <td class="py-5">
-
-                        INV002
-
-                    </td>
-
-                    <td>
-
-                        Rina
-
-                    </td>
-
-                    <td>
-
-                        Faiz
-
-                    </td>
-
-                    <td>
-
-                        Rp135.000
-
-                    </td>
-
-                    <td>
-
-                        <span
-                        class="bg-yellow-100
-                        text-yellow-700
-                        px-4
-                        py-2
-                        rounded-full
-                        text-sm">
-
-                            Pending
-
-                        </span>
+                        {{ $trx->created_at->format('d M Y') }}
 
                     </td>
 
                 </tr>
 
-                <tr
-                class="border-b
-                hover:bg-slate-50">
+                @empty
 
-                    <td class="py-5">
+                <tr>
 
-                        INV003
+                    <td colspan="6" class="px-6 py-14 text-center text-slate-400">
 
-                    </td>
+                        <i class="fa-solid fa-receipt text-4xl mb-3 block"></i>
 
-                    <td>
-
-                        Budi
-
-                    </td>
-
-                    <td>
-
-                        Faiz
-
-                    </td>
-
-                    <td>
-
-                        Rp420.000
-
-                    </td>
-
-                    <td>
-
-                        <span
-                        class="bg-green-100
-                        text-green-700
-                        px-4
-                        py-2
-                        rounded-full
-                        text-sm">
-
-                            Berhasil
-
-                        </span>
+                        Belum ada transaksi.
 
                     </td>
 
                 </tr>
+
+                @endforelse
 
             </tbody>
 
@@ -680,8 +462,18 @@ p-8">
 
 </div>
 
-</div>
+@push('scripts')
 
-</div>
+<script>
+
+window.salesLabels = @json($labels);
+
+window.salesData = @json($data);
+
+</script>
+
+@vite(['resources/js/dashboard.js', 'resources/js/transaction/index.js'])
+
+@endpush
 
 @endsection

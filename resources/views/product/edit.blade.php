@@ -67,12 +67,14 @@
                             Kategori
                         </label>
 
-                        <input
-                            type="text"
-                            name="kategori"
-                            value="{{ old('kategori',$product->kategori) }}"
-                            placeholder="Masukkan kategori"
-                            class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <select name="category_id" class="...">
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ $product->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->kode_kategori }} - {{ $category->nama_kategori }}
+                                </option>
+                            @endforeach
+                        </select>
 
                     </div>
 

@@ -12,21 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         data: {
 
-            labels: [
-                'Sen',
-                'Sel',
-                'Rab',
-                'Kam',
-                'Jum',
-                'Sab',
-                'Min'
-            ],
+            labels: window.salesLabels,
 
             datasets: [{
 
                 label: 'Penjualan',
 
-                data: [15,25,18,40,37,48,37],
+                data: window.salesData,
 
                 borderColor: '#2563eb',
 

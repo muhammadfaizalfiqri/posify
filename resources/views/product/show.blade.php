@@ -47,7 +47,7 @@
                     <label class="text-sm text-gray-500">Kategori</label>
 
                     <div class="mt-2 bg-gray-50 border rounded-xl px-4 py-3">
-                        {{ $product->kategori }}
+                        {{ $product->category->kode_kategori }} - {{ $product->category->nama_kategori }}
                     </div>
                 </div>
 

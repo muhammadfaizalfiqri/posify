@@ -87,18 +87,30 @@
                 </div>
 
                 {{-- Kategori --}}
-                <div>
-                    <label class="block mb-2 text-sm font-semibold text-gray-700">
+               <div>
+                    <label class="block mb-2 font-medium text-gray-700">
                         Kategori
                     </label>
 
-                    <input
-                        type="text"
-                        name="kategori"
-                        value="{{ old('kategori') }}"
-                        placeholder="Makanan, Minuman, dll"
-                        class="w-full rounded-xl border border-gray-300 px-4 py-3
-                        focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                    <select
+                        name="category_id"
+                        class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500">
+
+                        <option value="">Pilih Kategori</option>
+
+                        @foreach($categories as $category)
+
+                            <option value="{{ $category->id }}">
+                                {{ $category->kode_kategori }} - {{ $category->nama_kategori }}
+                            </option>
+
+                        @endforeach
+
+                    </select>
+
+                    @error('category_id')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 {{-- Harga --}}

@@ -27,5 +27,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
         //
     })
+    ->withMiddleware(function (Middleware $middleware) {
+    // Beritahu Laravel untuk mempercayai semua proxy (termasuk Ngrok)
+    $middleware->trustProxies(at: '*');
+})
 
     ->create();

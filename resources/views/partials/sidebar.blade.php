@@ -72,12 +72,11 @@
             <li>
 
                 <a
-                href="#"
+                href="/categories"
 
                 class="flex items-center gap-4
                 px-5 py-3 rounded-xl
-                hover:bg-slate-800
-                duration-300">
+                {{ request()->is('categories') ? 'bg-blue-600' : '' }}">
 
                     <i class="fa-solid fa-tags"></i>
 
@@ -90,12 +89,11 @@
             <li>
 
                 <a
-                href="#"
+                href="/suppliers"
 
                 class="flex items-center gap-4
                 px-5 py-3 rounded-xl
-                hover:bg-slate-800
-                duration-300">
+                {{ request()->is('suppliers') ? 'bg-blue-600' : '' }}">
 
                     <i class="fa-solid fa-truck"></i>
 
@@ -108,12 +106,11 @@
             <li>
 
                 <a
-                href="#"
+                href="/customers"
 
                 class="flex items-center gap-4
                 px-5 py-3 rounded-xl
-                hover:bg-slate-800
-                duration-300">
+                {{ request()->is('customers') ? 'bg-blue-600' : '' }}">
 
                     <i class="fa-solid fa-users"></i>
 
@@ -126,12 +123,11 @@
             <li>
 
                 <a
-                href="#"
+                href="/transactions"
 
                 class="flex items-center gap-4
                 px-5 py-3 rounded-xl
-                hover:bg-slate-800
-                duration-300">
+                {{ request()->is('transactions') ? 'bg-blue-600' : '' }}">
 
                     <i class="fa-solid fa-cash-register"></i>
 
@@ -144,12 +140,11 @@
             <li>
 
                 <a
-                href="#"
+                href="/reports"
 
                 class="flex items-center gap-4
                 px-5 py-3 rounded-xl
-                hover:bg-slate-800
-                duration-300">
+                {{ request()->is('reports') ? 'bg-blue-600' : '' }}">
 
                     <i class="fa-solid fa-chart-column"></i>
 
