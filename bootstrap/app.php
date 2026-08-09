@@ -16,20 +16,24 @@ return Application::configure(basePath: dirname(__DIR__))
 
     ->withMiddleware(function (Middleware $middleware) {
 
+        // Beritahu Laravel untuk mempercayai semua proxy
+        // termasuk Railway dan Ngrok
+        $middleware->trustProxies(at: '*');
+
+        // Webhook Midtrans tidak mengirim CSRF token
+        $middleware->validateCsrfTokens(except: [
+            'midtrans/notification',
+        ]);
+
+        // Jika nanti ingin menggunakan custom middleware:
         // $middleware->alias([
         //     'auth'  => Authenticate::class,
         //     'guest' => RedirectIfAuthenticated::class,
         // ]);
-
     })
 
     ->withExceptions(function (Exceptions $exceptions) {
-
         //
     })
-    ->withMiddleware(function (Middleware $middleware) {
-    // Beritahu Laravel untuk mempercayai semua proxy (termasuk Ngrok)
-    $middleware->trustProxies(at: '*');
-})
 
     ->create();
