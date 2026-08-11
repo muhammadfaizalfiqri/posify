@@ -10,150 +10,204 @@ class MidtransNotificationController extends Controller
 {
     public function handle(Request $request)
     {
-        $notification = $request->all();
+        try {
+            $notification = $request->all();
 
-        Log::info('MIDTRANS WEBHOOK:', $notification);
-
-        $orderId = $notification['order_id'] ?? null;
-        $statusCode = $notification['status_code'] ?? null;
-        $grossAmount = $notification['gross_amount'] ?? null;
-        $signatureKey = $notification['signature_key'] ?? null;
-
-        if (!$orderId || !$statusCode || !$grossAmount || !$signatureKey) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Data notification tidak lengkap.'
-            ], 400);
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | VERIFY SIGNATURE
-        |--------------------------------------------------------------------------
-        */
-
-        $serverKey = config('midtrans.server_key');
-
-        $signature = hash(
-            'sha512',
-            $orderId . $statusCode . $grossAmount . $serverKey
-        );
-
-        if (!hash_equals($signature, $signatureKey)) {
-
-            Log::warning('MIDTRANS WEBHOOK INVALID SIGNATURE', [
-                'order_id' => $orderId,
+            Log::info('MIDTRANS WEBHOOK RECEIVED', [
+                'data' => $notification,
             ]);
 
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid signature.'
-            ], 403);
-        }
+            $orderId = $notification['order_id'] ?? null;
+            $statusCode = $notification['status_code'] ?? null;
+            $grossAmount = $notification['gross_amount'] ?? null;
+            $signatureKey = $notification['signature_key'] ?? null;
 
-        /*
-        |--------------------------------------------------------------------------
-        | FIND TRANSACTION
-        |--------------------------------------------------------------------------
-        */
+            /*
+            |--------------------------------------------------------------------------
+            | VALIDATE DATA
+            |--------------------------------------------------------------------------
+            */
 
-        $transaction = Transaction::where(
-            'invoice',
-            $orderId
-        )->first();
-
-        if (!$transaction) {
-
-            Log::warning('TRANSACTION NOT FOUND', [
-                'order_id' => $orderId,
-            ]);
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Transaction not found.'
-            ], 404);
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | GET MIDTRANS STATUS
-        |--------------------------------------------------------------------------
-        */
-
-        $transactionStatus =
-            $notification['transaction_status'] ?? null;
-
-        /*
-        |--------------------------------------------------------------------------
-        | UPDATE TRANSACTION
-        |--------------------------------------------------------------------------
-        */
-
-        switch ($transactionStatus) {
-
-            case 'settlement':
-
-                $transaction->update([
-                    'status' => 'paid',
+            if (
+                !$orderId ||
+                !$statusCode ||
+                !$grossAmount ||
+                !$signatureKey
+            ) {
+                Log::warning('MIDTRANS WEBHOOK DATA INCOMPLETE', [
+                    'data' => $notification,
                 ]);
 
-                break;
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data notification tidak lengkap.',
+                ], 400);
+            }
 
-            case 'capture':
+            /*
+            |--------------------------------------------------------------------------
+            | VERIFY SIGNATURE
+            |--------------------------------------------------------------------------
+            */
 
-                $fraudStatus =
-                    $notification['fraud_status'] ?? null;
+            $serverKey = config('midtrans.server_key');
 
-                if ($fraudStatus === 'accept') {
+            $signature = hash(
+                'sha512',
+                $orderId .
+                $statusCode .
+                $grossAmount .
+                $serverKey
+            );
+
+            if (!hash_equals($signature, $signatureKey)) {
+                Log::warning('MIDTRANS WEBHOOK INVALID SIGNATURE', [
+                    'order_id' => $orderId,
+                ]);
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid signature.',
+                ], 403);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | FIND TRANSACTION
+            |--------------------------------------------------------------------------
+            */
+
+            $transaction = Transaction::where(
+                'invoice',
+                $orderId
+            )->first();
+
+            if (!$transaction) {
+                Log::warning('MIDTRANS TRANSACTION NOT FOUND', [
+                    'order_id' => $orderId,
+                ]);
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Transaction not found.',
+                ], 404);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | GET MIDTRANS STATUS
+            |--------------------------------------------------------------------------
+            */
+
+            $transactionStatus =
+                $notification['transaction_status'] ?? null;
+
+            /*
+            |--------------------------------------------------------------------------
+            | UPDATE TRANSACTION
+            |--------------------------------------------------------------------------
+            */
+
+            switch ($transactionStatus) {
+
+                case 'settlement':
 
                     $transaction->update([
                         'status' => 'paid',
                     ]);
-                }
 
-                break;
+                    break;
 
-            case 'pending':
+                case 'capture':
 
-                $transaction->update([
-                    'status' => 'pending',
-                ]);
+                    $fraudStatus =
+                        $notification['fraud_status'] ?? null;
 
-                break;
+                    if ($fraudStatus === 'accept') {
+                        $transaction->update([
+                            'status' => 'paid',
+                        ]);
+                    }
 
-            case 'expire':
+                    break;
 
-                $transaction->update([
-                    'status' => 'expired',
-                ]);
+                case 'pending':
 
-                break;
+                    $transaction->update([
+                        'status' => 'pending',
+                    ]);
 
-            case 'cancel':
+                    break;
 
-                $transaction->update([
-                    'status' => 'cancelled',
-                ]);
+                case 'expire':
 
-                break;
+                    $transaction->update([
+                        'status' => 'expired',
+                    ]);
 
-            case 'deny':
+                    break;
 
-                $transaction->update([
-                    'status' => 'failed',
-                ]);
+                case 'cancel':
 
-                break;
+                    $transaction->update([
+                        'status' => 'cancelled',
+                    ]);
+
+                    break;
+
+                case 'deny':
+
+                    $transaction->update([
+                        'status' => 'failed',
+                    ]);
+
+                    break;
+
+                case 'refund':
+                case 'partial_refund':
+
+                    $transaction->update([
+                        'status' => 'refunded',
+                    ]);
+
+                    break;
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | LOG SUCCESS
+            |--------------------------------------------------------------------------
+            */
+
+            Log::info('MIDTRANS TRANSACTION UPDATED', [
+                'order_id' => $orderId,
+                'status' => $transactionStatus,
+                'transaction_id' => $transaction->id,
+            ]);
+
+            /*
+            |--------------------------------------------------------------------------
+            | RESPONSE
+            |--------------------------------------------------------------------------
+            */
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Notification received.',
+            ], 200);
+
+        } catch (\Throwable $e) {
+
+            Log::error('MIDTRANS WEBHOOK ERROR', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Webhook processing failed.',
+            ], 500);
         }
-
-        Log::info('MIDTRANS TRANSACTION UPDATED', [
-            'order_id' => $orderId,
-            'status' => $transactionStatus,
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Notification received.'
-        ]);
     }
 }
