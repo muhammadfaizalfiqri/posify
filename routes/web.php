@@ -34,6 +34,8 @@ Route::middleware('guest')->group(function () {
         ->name('login.store');
 });
 
+Route::post('/midtrans/notification',[MidtransNotificationController::class, 'handle']);
+
 Route::middleware('auth')->group(function () {
 
     Route::get('/notifications', function (Request $request) {
@@ -121,8 +123,6 @@ Route::middleware('auth')->group(function () {
         ->name('reports.export');
 
     // Route::post('/midtrans/notification', [MidtransController::class, 'notification']);
-
-    Route::post('/midtrans/notification',[MidtransNotificationController::class, 'handle']);
 
     Route::get('/reports/{transaction}/print', [ReportController::class, 'print'])
         ->name('reports.print');
